@@ -2,11 +2,26 @@
 
 <img src="src/assets/zhuatech-logo.jpg" width="72" height="72" alt="知华科技" />
 
-**知华科技 · 企业 AI 定制 · 仓储系统开发 · WMS / ERP 对接**
+由 [知华科技（上海如静知华信息科技有限公司）](https://www.zhuatech.cn/) 提供的免费仓库库位标签工具。支持按「库区—排—层—位」批量编号、粘贴已有编号、生成条形码或二维码，以及按实际标签尺寸导出 PDF。
 
-[知华官网](https://www.zhuatech.cn/) · [定制与部署咨询](https://www.zhuatech.cn/contact.html?utm_source=location_labels&utm_medium=source_repo&utm_campaign=warehouse)
+## 页面实录
 
-免费生成仓库库位编号、条形码和二维码标签。支持按「库区—排—层—位」批量编号、粘贴已有编号、自定义标签尺寸和 PDF 导出。
+![按规则生成库位编号和条形码标签的工作台](docs/images/location-barcode.jpeg)
+
+按规则批量生成库位编号，预览条形码标签，并导出实际尺寸 PDF。
+
+![粘贴中文库位编号和二维码标签的工作台](docs/images/location-qr.jpeg)
+
+粘贴已有编号，使用二维码保留中文内容。
+
+## 主要功能
+
+| 功能     | 支持的操作                                       |
+| -------- | ------------------------------------------------ |
+| 库位编号 | 按库区、排、层、位批量生成；也可逐行粘贴已有编号 |
+| 标签预览 | 选择 Code 128 条形码或二维码，逐张检查编号       |
+| PDF 导出 | 自定义标签尺寸；单枚标签纸或 A4 拼版             |
+| 配置保存 | 在当前浏览器保存设置，导入或导出配置文件         |
 
 使用方法见站内「操作手册」或 [操作手册](docs/操作手册.md)。
 
@@ -52,6 +67,7 @@ npm run build
 - `src/app.js`：交互、本地保存和渐进式 WebMCP 支持。
 - `src/assets/zhuatech-logo.jpg`：知华科技 LOGO。
 - `docs/操作手册.md`：编号、标签尺寸、配置备份和打印操作说明。
+- `docs/images/location-*.jpeg`：标签工作台实录。
 
 ## 源码与授权
 
