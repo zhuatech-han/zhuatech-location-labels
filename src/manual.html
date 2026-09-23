@@ -1,0 +1,166 @@
+<!doctype html>
+<!-- 知华科技 · https://www.zhuatech.cn/ · 定制与商业授权微信：zhuatech / zhuatech2 -->
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>操作手册 · 知华库位标签</title>
+    <link rel="icon" type="image/jpeg" href="./assets/zhuatech-logo.jpg" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="manual-page">
+    <header class="site-header">
+      <a class="brand" href="./"
+        ><img
+          class="brand-logo"
+          src="./assets/zhuatech-logo.jpg"
+          width="40"
+          height="40"
+          alt="知华科技"
+        />
+        <span
+          >知华<span class="brand-divider">/</span
+          ><strong>库位标签</strong></span
+        ></a
+      >
+      <nav aria-label="主导航">
+        <a href="./">标签工作台</a
+        ><a href="./manual.html" aria-current="page">操作手册</a>
+      </nav>
+    </header>
+    <main class="manual">
+      <h1>操作手册</h1>
+      <section>
+        <h2>生成编号</h2>
+        <p>
+          选择「按规则生成」，填写库区前缀、排数、每排层数和每层位数。前缀可留空。
+        </p>
+        <p>
+          例如前缀 A、3 排、4 层、5 位，从 1 开始，使用 2 位数字：生成 60
+          个编号，从 <code>A-01-01-01</code> 到
+          <code>A-03-04-05</code>。起始编号和数字位数对排、层、位三段同时生效。
+        </p>
+        <p>
+          已有编号时选择「粘贴已有编号」，每行一条。空行和首尾空格会被忽略，前导零保留。重复编号会阻止导出；点击「移除重复编号」可保留每个编号的首次出现。
+        </p>
+      </section>
+      <section>
+        <h2>设置标签</h2>
+        <table>
+          <tbody>
+            <tr>
+              <th scope="row">标签尺寸</th>
+              <td>
+                按标签纸宽高选择预设，或选择「自定义」填写宽度与高度；单位为
+                mm，支持 10–200 mm。
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">编码类型</th>
+              <td>
+                条形码支持英文、数字和常见符号；中文编号使用二维码。扫码内容为库位编号。
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">A4 拼版</th>
+              <td>
+                适合整张 A4
+                不干胶纸打印后裁切，也可用于普通纸试印。预切标签纸需要匹配专用模板；页边距与间距可调整。
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">标签打印机</th>
+              <td>
+                默认方式。每页一枚标签，PDF 页面尺寸等于标签纸尺寸。例如 60 枚
+                80 × 40 mm 标签，生成 60 页 80 × 40 mm PDF。
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>导出与打印</h2>
+        <ol>
+          <li>
+            选择「标签打印机」，填写与实际标签纸相同的宽度、高度；核对编号与预览。
+          </li>
+          <li>点击「下载标签 PDF」，用 PDF 阅读器打开文件。</li>
+          <li>
+            安装打印机厂商驱动，在打印对话框选择设备，将驱动中的纸张宽高和方向设为与
+            PDF 一致；按厂商说明校准标签间隙或黑标。
+          </li>
+          <li>
+            打印设置选择「实际大小」或「100%」，关闭「适合页面」。标签打印机的纸张尺寸应与
+            PDF 一致。
+          </li>
+          <li>先打印一页，检查尺寸并扫码核对，再批量打印。</li>
+        </ol>
+        <p>
+          当前流程是「PDF 阅读器 → 打印机驱动 → 标签机」，不直接连接
+          USB、蓝牙或网络打印机。打印范围、驱动和纸张支持以具体机型为准；PDF
+          文件不代表打印机具备原生 PDF 直打能力。
+        </p>
+        <p>
+          打印 A4 时选择「A4 拼版」，使用相应的 A4
+          纸张；本工具没有预切标签纸的品牌模板。
+        </p>
+      </section>
+      <section>
+        <h2>保存与恢复</h2>
+        <p>
+          有效设置会自动保存在当前浏览器。点击「导出配置」保存编号与设置；在其他设备点击「导入配置」恢复。配置文件包含库位编号，请自行保管。
+        </p>
+        <p>编号、配置与 PDF 在浏览器内处理。清除浏览器数据会删除本地记录。</p>
+      </section>
+      <section>
+        <h2>常见问题</h2>
+        <table>
+          <tbody>
+            <tr>
+              <th scope="row">无法导出</th>
+              <td>
+                检查页面显示的错误。单次最多 1000 张，每个编号最多 64
+                个字符；重复编号、不可见字符或过密的编码需先处理。
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">条码过密</th>
+              <td>选择更宽的标签、缩短编号，或改用二维码。</td>
+            </tr>
+            <tr>
+              <th scope="row">打印尺寸不对</th>
+              <td>
+                检查打印缩放与纸张尺寸。预览在屏幕上的大小不代表实际打印尺寸。
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">扫码后没有库存</th>
+              <td>
+                本工具只生成编号标签。库存查询与出入库操作需要接入仓储业务系统。
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>联系知华科技</h2>
+        <p>
+          定制开发、商业授权与部署咨询：微信 zhuatech / zhuatech2；<a
+            href="https://www.zhuatech.cn/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >知华官网</a
+          >。
+        </p>
+      </section>
+      <footer>
+        <a
+          href="https://www.zhuatech.cn/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >知华科技</a
+        ><a href="./vendor/THIRD_PARTY_NOTICES.txt">组件许可</a>
+      </footer>
+    </main>
+  </body>
+</html>

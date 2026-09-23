@@ -1,0 +1,341 @@
+<!doctype html>
+<!-- 知华科技 · https://www.zhuatech.cn/ · 定制与商业授权微信：zhuatech / zhuatech2 -->
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="免费批量生成仓库库位编号和条码标签。支持自定义编号、标签纸尺寸与实际尺寸 PDF，无需注册，内容在浏览器内处理。"
+    />
+    <meta name="theme-color" content="#15273b" />
+    <title>知华库位标签 · 免费编号与标签 PDF 工具</title>
+    <link rel="icon" type="image/jpeg" href="./assets/zhuatech-logo.jpg" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./vendor/JsBarcode.code128.min.js" defer></script>
+    <script src="./vendor/qrcode.js" defer></script>
+    <script src="./vendor/qrcode_UTF8.js" defer></script>
+    <script src="./vendor/jspdf.umd.min.js" defer></script>
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body class="tool-page">
+    <a class="skip-link" href="#workspace">跳到标签工作台</a>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="知华库位标签首页"
+        ><img
+          class="brand-logo"
+          src="./assets/zhuatech-logo.jpg"
+          width="40"
+          height="40"
+          alt="知华科技"
+        />
+        <span
+          >知华<span class="brand-divider">/</span
+          ><strong>库位标签</strong></span
+        ></a
+      >
+      <nav aria-label="主导航">
+        <a href="#workspace" aria-current="page">标签工作台</a
+        ><a href="./manual.html">操作手册</a
+        ><a
+          class="brand-link"
+          href="https://www.zhuatech.cn/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >知华科技 ↗</a
+        >
+      </nav>
+    </header>
+    <main>
+      <h1 class="visually-hidden">库位标签</h1>
+      <div id="workspace" class="workspace">
+        <section class="controls" aria-label="标签设置">
+          <div class="control-heading">
+            <span class="step-number">01</span>
+            <h2>库位编号</h2>
+            <button id="reset-example" class="text-button" type="button">
+              载入示例
+            </button>
+          </div>
+          <div class="segmented" role="group" aria-label="编号输入方式">
+            <button
+              id="mode-rules"
+              type="button"
+              aria-pressed="true"
+              data-mode="rules"
+            >
+              按规则生成</button
+            ><button
+              id="mode-paste"
+              type="button"
+              aria-pressed="false"
+              data-mode="paste"
+            >
+              粘贴已有编号
+            </button>
+          </div>
+          <form id="settings-form" novalidate>
+            <div id="rules-panel">
+              <label class="field"
+                >库区前缀<input
+                  id="prefix"
+                  name="prefix"
+                  type="text"
+                  maxlength="16"
+                  value="A"
+                  placeholder="A"
+                  autocomplete="off"
+                  spellcheck="false"
+              /></label>
+              <div class="number-grid">
+                <label class="field"
+                  >排数<input
+                    name="racks"
+                    type="number"
+                    min="1"
+                    max="99"
+                    value="3"
+                    inputmode="numeric" /></label
+                ><label class="field"
+                  >每排层数<input
+                    name="levels"
+                    type="number"
+                    min="1"
+                    max="99"
+                    value="4"
+                    inputmode="numeric" /></label
+                ><label class="field"
+                  >每层位数<input
+                    name="bins"
+                    type="number"
+                    min="1"
+                    max="99"
+                    value="5"
+                    inputmode="numeric"
+                /></label>
+              </div>
+              <div class="two-columns">
+                <label class="field"
+                  >各段起始编号<input
+                    name="start"
+                    type="number"
+                    min="0"
+                    max="999"
+                    value="1"
+                    inputmode="numeric" /></label
+                ><label class="field"
+                  >数字位数<select name="digits">
+                    <option value="2">2 位 · 01</option>
+                    <option value="3">3 位 · 001</option>
+                  </select></label
+                >
+              </div>
+              <div class="pattern-preview">
+                <span>编号样式</span
+                ><strong id="pattern-example">A-01-01-01</strong>
+              </div>
+            </div>
+            <div id="paste-panel" hidden>
+              <label class="field"
+                >每行一个库位编号<textarea
+                  name="pasted"
+                  rows="8"
+                  maxlength="120000"
+                  placeholder="A-01-01-01&#10;A-01-01-02&#10;A-01-01-03"
+                  spellcheck="false"
+                ></textarea></label
+              ><button
+                id="remove-duplicates"
+                type="button"
+                class="text-button"
+                hidden
+              >
+                移除重复编号
+              </button>
+            </div>
+            <div class="section-divider"></div>
+            <div class="control-heading">
+              <span class="step-number">02</span>
+              <h2>标签设置</h2>
+            </div>
+            <label class="field"
+              >标签尺寸<select name="size">
+                <option value="80x40">80 × 40 mm</option>
+                <option value="100x50">100 × 50 mm</option>
+                <option value="60x40">60 × 40 mm</option>
+                <option value="50x30">50 × 30 mm</option>
+                <option value="custom">自定义</option>
+              </select></label
+            >
+            <div id="custom-size" class="two-columns" hidden>
+              <label class="field"
+                >宽度（mm）<input
+                  name="customWidth"
+                  type="number"
+                  min="10"
+                  max="200"
+                  step="0.1"
+                  value="80"
+                  inputmode="decimal"
+              /></label>
+              <label class="field"
+                >高度（mm）<input
+                  name="customHeight"
+                  type="number"
+                  min="10"
+                  max="200"
+                  step="0.1"
+                  value="40"
+                  inputmode="decimal"
+              /></label>
+            </div>
+            <div class="two-columns">
+              <label class="field"
+                >编码类型<select name="codeType">
+                  <option value="code128">条形码</option>
+                  <option value="qr">二维码</option>
+                </select></label
+              ><label class="field"
+                >打印方式<select name="paper">
+                  <option value="single" selected>标签打印机</option>
+                  <option value="a4">A4 拼版</option>
+                </select></label
+              >
+            </div>
+            <div id="a4-options" class="two-columns" hidden>
+              <label class="field"
+                >四周页边距（mm）<input
+                  name="margin"
+                  type="number"
+                  min="5"
+                  max="30"
+                  step="1"
+                  value="10"
+                  inputmode="numeric" /></label
+              ><label class="field"
+                >标签间距（mm）<input
+                  name="gap"
+                  type="number"
+                  min="0"
+                  max="10"
+                  step="0.5"
+                  value="3"
+                  inputmode="decimal"
+              /></label>
+            </div>
+            <label id="guides-option" class="check-field" hidden
+              ><input name="guides" type="checkbox" checked /> 裁切边框</label
+            >
+          </form>
+          <div class="settings-actions">
+            <button id="export-settings" type="button">导出配置</button
+            ><button id="import-settings" type="button">导入配置</button
+            ><input
+              id="config-file"
+              type="file"
+              accept="application/json,.json"
+              hidden
+            />
+          </div>
+          <p id="storage-note" class="small-note" role="status" hidden></p>
+        </section>
+        <section class="result" aria-labelledby="preview-title">
+          <div class="preview-toolbar">
+            <div>
+              <h2 id="preview-title">标签预览</h2>
+            </div>
+            <div class="result-total">
+              <strong id="total-count">60</strong><span>张标签</span>
+            </div>
+          </div>
+          <div
+            id="validation"
+            class="validation"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></div>
+          <div class="preview-board">
+            <div class="ruler-top" aria-hidden="true">
+              <span id="width-label">80 mm</span>
+            </div>
+            <div id="label-focus" class="label-focus"></div>
+            <div class="sample-navigation">
+              <button id="previous-label" type="button" aria-label="上一张标签">
+                ←</button
+              ><span id="sample-position">第 1 / 60 张</span
+              ><button id="next-label" type="button" aria-label="下一张标签">
+                →
+              </button>
+            </div>
+          </div>
+          <div class="output-summary">
+            <span><strong id="page-count">60</strong> 页 PDF</span
+            ><span id="layout-summary">每页 1 枚标签</span
+            ><span id="paper-summary">单枚 · 80 × 40 mm</span>
+          </div>
+          <div class="export-bar">
+            <button id="download-pdf" class="primary-button" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5" /></svg
+              ><span>下载标签 PDF</span>
+            </button>
+          </div>
+          <div
+            id="download-success"
+            class="visually-hidden"
+            role="status"
+            hidden
+          ></div>
+          <div id="sheet-section" class="sheet-section" hidden>
+            <div class="sheet-heading">
+              <h3>整页排版</h3>
+            </div>
+            <div class="sheet-stage">
+              <div id="sheet-preview" class="sheet-preview"></div>
+            </div>
+            <div class="sheet-navigation">
+              <button id="previous-page" type="button">上一页</button
+              ><span id="sheet-position">1 / 5</span
+              ><button id="next-page" type="button">下一页</button>
+            </div>
+          </div>
+        </section>
+      </div>
+      <section class="service-card" aria-label="知华业务服务">
+        <img
+          class="service-logo"
+          src="./assets/zhuatech-logo.jpg"
+          width="48"
+          height="48"
+          alt="知华科技"
+        />
+        <div>
+          <p class="eyebrow">知华科技</p>
+          <h2>仓储系统定制 · WMS / ERP 对接</h2>
+          <p>微信：zhuatech / zhuatech2</p>
+        </div>
+        <a
+          href="https://www.zhuatech.cn/contact.html?utm_source=location_labels&amp;utm_medium=free_tool&amp;utm_campaign=warehouse"
+          target="_blank"
+          rel="noopener noreferrer"
+          >咨询定制 <span aria-hidden="true">↗</span></a
+        >
+      </section>
+      <footer>
+        <a
+          href="https://www.zhuatech.cn/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >知华科技</a
+        ><a
+          href="./vendor/THIRD_PARTY_NOTICES.txt"
+          target="_blank"
+          rel="noopener noreferrer"
+          >组件许可</a
+        >
+      </footer>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>
