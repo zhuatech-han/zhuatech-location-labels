@@ -6,13 +6,13 @@
 
 [知华官网](https://www.zhuatech.cn/) · [定制与部署咨询](https://www.zhuatech.cn/contact.html?utm_source=location_labels&utm_medium=source_repo&utm_campaign=warehouse)
 
-免费网页工具：按「库区—排—层—位」生成编号，或粘贴已有编号，预览 Code 128 / QR 标签并导出实际尺寸 PDF。无需账号、模型 API、数据库或服务器端文件处理。网页展示知华仓储定制与系统集成服务，导出标签不附带广告或追踪地址。
+免费生成仓库库位编号、条形码和二维码标签。支持按「库区—排—层—位」批量编号、粘贴已有编号、自定义标签尺寸和 PDF 导出。
 
 使用方法见站内「操作手册」或 [操作手册](docs/操作手册.md)。
 
 ## 运行
 
-Node.js 24 LTS（本次使用 24.19.0），npm 11。依赖锁定在 `package-lock.json`。
+Node.js 24 LTS，npm 11。依赖锁定在 `package-lock.json`。
 
 ```sh
 npm ci
@@ -50,7 +50,7 @@ npm run build
 - `src/encoding.js`：统一的条码几何，用于预览和输出。
 - `src/pdf.js`：实际尺寸 PDF 导出。
 - `src/app.js`：交互、本地保存和渐进式 WebMCP 支持。
-- `src/assets/zhuatech-logo.jpg`：知华官网原版 LOGO，来自本地品牌素材，官网源地址为 `https://www.zhuatech.cn/assets/img/zhihua-logo.jpg`。
+- `src/assets/zhuatech-logo.jpg`：知华科技 LOGO。
 - `docs/操作手册.md`：编号、标签尺寸、配置备份和打印操作说明。
 
 ## 源码与授权
@@ -67,5 +67,3 @@ npm run build
 | 微信咨询一                                  | 微信咨询二                                  |
 | ------------------------------------------- | ------------------------------------------- |
 | ![知华微信咨询一](docs/images/wechat-1.png) | ![知华微信咨询二](docs/images/wechat-2.png) |
-
-联系方式与原始二维码参考用户指定的 [知华 VOC 仓库](https://github.com/zhihua-tech/zhuatech-voc/tree/86a8b09ba328a990274efb9394bd2a85ed1b1230)。
