@@ -80,6 +80,6 @@ npm run build
 - 官网：[www.zhuatech.cn](https://www.zhuatech.cn/)
 - 微信：`zhuatech` / `zhuatech2`
 
-| 微信咨询一                                  | 微信咨询二                                  |
-| ------------------------------------------- | ------------------------------------------- |
-| ![知华微信咨询一](docs/images/wechat-1.png) | ![知华微信咨询二](docs/images/wechat-2.png) |
+|                             微信 zhuatech                             |                             微信 zhuatech2                             |
+| :-------------------------------------------------------------------: | :--------------------------------------------------------------------: |
+| <img src="docs/images/wechat-1.png" alt="微信 zhuatech" height="200"> | <img src="docs/images/wechat-2.png" alt="微信 zhuatech2" height="200"> |
